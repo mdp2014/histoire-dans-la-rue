@@ -35,8 +35,8 @@ Ce GIF montre comment l'application fonctionne en pratique. Les utilisateurs peu
 - `.gitignore` : patterns génériques
 - `LICENSE` : licence MIT
 
-## Essayer rapidement
+## Pour demarrrer vs code
 
-1. Ouvre le dossier dans VS Code :
+1. Ouvre le dossier dans VS Code:code /home/marin/Documents/histoire-dans-la-rue
 
 
