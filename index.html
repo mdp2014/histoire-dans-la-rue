@@ -163,7 +163,7 @@
         <div class="logo">🏛️</div>
         
         <h1>Histoire dans la Rue</h1>
-        <p class="subtitle">Découvrez Rochecorbon !</p>
+        <p class="subtitle">Découvrez votre village autrement</p>
         
         <p class="description">
             Partez à la découverte du patrimoine local à travers une balade interactive. 
@@ -246,9 +246,8 @@
         }
 
         function showQuizPage(qrCode) {
-            alert(`QR Code scanné avec succès !\n\nContenu: ${qrCode}\n\nVous serez redirigé vers le quiz...`);
-            // Ici vous pouvez rediriger vers la page du quiz
-            // window.location.href = '/quiz?code=' + qrCode;
+            // Redirige automatiquement vers l'URL scannée
+            window.location.href = qrCode;
         }
     </script>
 </body>
