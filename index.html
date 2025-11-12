@@ -188,17 +188,67 @@
             <div class="feature">
                 <div class="feature-icon">🎯</div>
                 <div class="feature-text">
-                    <strong>Répondez aux quiz</strong> et apprenez l'histoire de Rochecorbon
+                    <strong>Répondez aux quiz</strong> et apprenez l'histoire locale
                 </div>
             </div>
         </div>
 
         <button class="cta-button" onclick="startTour()">Commencer la visite</button>
+        
+        <div id="scannerSection" style="display: none; margin-top: 30px;">
+            <h2 style="color: #2d3748; margin-bottom: 20px; font-size: 1.5em;">Scanner un QR Code</h2>
+            <div id="reader" style="border-radius: 15px; overflow: hidden; margin-bottom: 20px;"></div>
+            <button class="cta-button" onclick="stopScanner()" style="background: #e53e3e; padding: 12px 30px; font-size: 1em;">Fermer le scanner</button>
+        </div>
     </div>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html5-qrcode/2.3.8/html5-qrcode.min.js"></script>
     <script>
+        let html5QrCode = null;
+
         function startTour() {
-            alert("Scannez un QR code sur l'un des panneaux pour commencer votre découverte !");
+            document.getElementById('scannerSection').style.display = 'block';
+            
+            html5QrCode = new Html5Qrcode("reader");
+            
+            const config = { 
+                fps: 10, 
+                qrbox: { width: 250, height: 250 },
+                aspectRatio: 1.0
+            };
+            
+            html5QrCode.start(
+                { facingMode: "environment" },
+                config,
+                (decodedText, decodedResult) => {
+                    console.log(`QR Code détecté: ${decodedText}`);
+                    stopScanner();
+                    showQuizPage(decodedText);
+                },
+                (errorMessage) => {
+                    // Erreurs de scan ignorées (normales pendant le scan)
+                }
+            ).catch((err) => {
+                alert("Erreur lors de l'accès à la caméra. Veuillez autoriser l'accès à la caméra.");
+                console.error(err);
+            });
+        }
+
+        function stopScanner() {
+            if (html5QrCode) {
+                html5QrCode.stop().then(() => {
+                    html5QrCode.clear();
+                    document.getElementById('scannerSection').style.display = 'none';
+                }).catch((err) => {
+                    console.error(err);
+                });
+            }
+        }
+
+        function showQuizPage(qrCode) {
+            alert(`QR Code scanné avec succès !\n\nContenu: ${qrCode}\n\nVous serez redirigé vers le quiz...`);
+            // Ici vous pouvez rediriger vers la page du quiz
+            // window.location.href = '/quiz?code=' + qrCode;
         }
     </script>
 </body>
