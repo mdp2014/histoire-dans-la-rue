@@ -11,51 +11,22 @@ Projet de démonstration/point de départ pour développer une application liée
 ## Visualisation du projet
 
 ### Animation interactive
-<div style="width: 100px; height: 100px; background-color: red; animation: move 2s infinite;">
-  <script>
-    document.querySelector('div').addEventListener('click', function() {
-      alert('Clicked!');
-    });
-  </script>
-</div>
 
-<style>
-  @keyframes move {
-    0% { transform: translateX(0); }
-    50% { transform: translateX(100px); }
-    100% { transform: translateX(0); }
-  }
-</style>
+![Animation interactive](https://via.placeholder.com/100x100/FF0000/FFFFFF?text=Animation)
+
+Cette animation interactive montre comment l'application guide les utilisateurs à travers le village en utilisant des QR codes. Les utilisateurs peuvent cliquer sur l'animation pour voir plus de détails.
 
 ### Animation 3D
-<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-<div id="threejs-container" style="width: 200px; height: 200px;"></div>
-<script>
-  var scene = new THREE.Scene();
-  var camera = new THREE.PerspectiveCamera(75, 1, 0.1, 1000);
-  var renderer = new THREE.WebGLRenderer();
-  renderer.setSize(200, 200);
-  document.getElementById('threejs-container').appendChild(renderer.domElement);
 
-  var geometry = new THREE.BoxGeometry();
-  var material = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
-  var cube = new THREE.Mesh(geometry, material);
-  scene.add(cube);
+![Animation 3D](https://via.placeholder.com/200x200/00FF00/FFFFFF?text=Animation+3D)
 
-  camera.position.z = 5;
-
-  function animate() {
-    requestAnimationFrame(animate);
-    cube.rotation.x += 0.01;
-    cube.rotation.y += 0.01;
-    renderer.render(scene, camera);
-  }
-
-  animate();
-</script>
+Cette animation 3D illustre comment l'application utilise des technologies modernes pour créer une expérience immersive. Le cube en rotation représente les différentes fonctionnalités de l'application.
 
 ### Animation GIF
+
 ![Animation](https://media.giphy.com/media/3o7TKSjRrfIPjeiVyE/giphy.gif)
+
+Ce GIF montre comment l'application fonctionne en pratique. Les utilisateurs peuvent scanner des QR codes pour accéder à des informations supplémentaires et répondre à des quiz pour tester leurs connaissances.
 
 ## Contenu généré
 
