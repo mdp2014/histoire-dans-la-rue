@@ -235,12 +235,23 @@
     </div>
 
     <script>
+        function normalize(str) {
+  return str
+    .normalize("NFD")                 // Sépare les accents
+    .replace(/[\u0300-\u036f]/g, "") // Supprime les accents
+    .replace(/[^a-z0-9 ]/gi, "")     // Supprime caractères spéciaux
+    .replace(/\s+/g, " ")            // Réduit les espaces multiples
+    .trim()                           // Retire espaces en début/fin
+    .toLowerCase();
+}
+
         function submitAnswers() {
             const input = document.querySelector('input[data-answer="0"]');
             const userAnswer = input.value.trim().toLowerCase();
-            const correctAnswer = "République Française".toLowerCase();
-            const isCorrect = userAnswer === correctAnswer;
-            
+            const correctAnswer = normalize("République Française");
+const userAnswerNormalized = normalize(userAnswer);
+
+const isCorrect = userAnswerNormalized === correctAnswer;
             let resultHTML = '<div class="result"><div class="result-title">✓ Résultats :</div>';
             resultHTML += `<div style="margin: 10px 0; padding: 10px; background: ${isCorrect ? '#e6fffa' : '#ffe6e6'}; border-radius: 8px;">
                 <strong>Q1: ${isCorrect ? '✓' : '✗'}</strong> Quelle inscription n'apparaît plus sur la façade de la mairie ?<br>
