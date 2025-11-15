@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panneau 12b - Histoire dans la Rue</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 30px;
+            padding: 50px 40px;
+            max-width: 700px;
+            width: 100%;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            animation: fadeIn 0.8s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 30px;
+            border-bottom: 2px solid #667eea;
+            padding-bottom: 20px;
+        }
+
+        .emoji-large {
+            font-size: 50px;
+        }
+
+        h1 {
+            color: #2d3748;
+            font-size: 2em;
+            font-weight: 700;
+        }
+
+        .mission {
+            background: #f0f4ff;
+            padding: 20px;
+            border-radius: 15px;
+            margin-bottom: 25px;
+            border-left: 4px solid #667eea;
+        }
+
+        .mission-title {
+            color: #667eea;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .mission-text {
+            color: #4a5568;
+            line-height: 1.6;
+        }
+
+        .description {
+            color: #718096;
+            font-size: 0.95em;
+            margin-top: 8px;
+            font-style: italic;
+        }
+
+        .question-card {
+            background: #fff5f7;
+            padding: 25px;
+            border-radius: 15px;
+            margin-bottom: 25px;
+            border: 2px solid #fed7e2;
+        }
+
+        .question-number {
+            color: #667eea;
+            font-weight: 600;
+            font-size: 0.9em;
+            margin-bottom: 10px;
+        }
+
+        .question-text {
+            color: #2d3748;
+            font-size: 1.1em;
+            font-weight: 600;
+            margin-bottom: 20px;
+            line-height: 1.5;
+        }
+
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .option {
+            background: white;
+            border: 2px solid #e2e8f0;
+            border-radius: 10px;
+            padding: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .option:hover {
+            border-color: #667eea;
+            background: #f7fafc;
+        }
+
+        .option.selected {
+            background: #667eea;
+            color: white;
+            border-color: #667eea;
+        }
+
+        .option input[type="radio"] {
+            margin-right: 10px;
+            cursor: pointer;
+        }
+
+        .text-input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e2e8f0;
+            border-radius: 10px;
+            font-size: 1em;
+            font-family: inherit;
+            transition: border-color 0.3s ease;
+        }
+
+        .text-input:focus {
+            outline: none;
+            border-color: #667eea;
+            background: #f7fafc;
+        }
+
+        .indice {
+            color: #667eea;
+            font-size: 0.9em;
+            margin-top: 10px;
+            font-weight: 500;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 15px;
+            margin-top: 30px;
+        }
+
+        .btn {
+            flex: 1;
+            padding: 15px;
+            border: none;
+            border-radius: 10px;
+            font-size: 1em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.3);
+        }
+
+        .btn-secondary {
+            background: #e2e8f0;
+            color: #2d3748;
+        }
+
+        .btn-secondary:hover {
+            background: #cbd5e0;
+        }
+
+        .result {
+            background: #c6f6d5;
+            border: 2px solid #9ae6b4;
+            color: #22543d;
+            padding: 20px;
+            border-radius: 15px;
+            margin-top: 20px;
+        }
+
+        .result.error {
+            background: #fed7d7;
+            border-color: #fc8181;
+            color: #742a2a;
+        }
+
+        .result-title {
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 30px 20px;
+            }
+
+            h1 {
+                font-size: 1.5em;
+            }
+
+            .question-text {
+                font-size: 1em;
+            }
+
+            .button-group {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <span class="emoji-large">🏠</span>
+            <h1>Les habitants des bâtiments publics</h1>
+        </div>
+
+        <div class="mission">
+            <div class="mission-title">🎯 Mission :</div>
+            <div class="mission-text">Découvre qui vivait dans les lieux emblématiques de Rochecorbon.</div>
+            <div class="description">Les bâtiments publics ont une histoire riche.</div>
+        </div>
+
+        <div class="question-card">
+            <div class="question-number">Question 1</div>
+            <div class="question-text">Qui habitait dans la maison derrière la bibliothèque avant 1900 ?</div>
+            <div class="options">
+                <label class="option">
+                    <input type="radio" name="q1" value="0">
+                    Mickey
+                </label>
+                <label class="option">
+                    <input type="radio" name="q1" value="1">
+                    Le Maire
+                </label>
+                <label class="option">
+                    <input type="radio" name="q1" value="2">
+                    Le curé
+                </label>
+            </div>
+        </div>
+
+        <div class="question-card">
+            <div class="question-number">Question 2</div>
+            <div class="question-text">Qui habitait dans la mairie actuelle à sa construction en 1838 ?</div>
+            <input type="text" class="text-input" placeholder="Votre réponse..." data-answer="1">
+            <div class="indice">💡 Indice : Deux personnes éducatives</div>
+        </div>
+
+        <div class="button-group">
+            <button class="btn btn-secondary" onclick="goBack()">← Retour</button>
+            <button class="btn btn-primary" onclick="submitAnswers()">Vérifier mes réponses</button>
+        </div>
+    </div>
+
+    <script>
+        document.querySelectorAll('.option').forEach(opt => {
+            opt.addEventListener('click', function() {
+                document.querySelectorAll('input[name="q1"]').forEach(r => r.parentElement.classList.remove('selected'));
+                this.classList.add('selected');
+            });
+        });
+
+        function submitAnswers() {
+            let allCorrect = true;
+            let resultHTML = '<div class="result"><div class="result-title">✓ Résultats :</div>';
+
+            // Question 1
+            const q1Selected = document.querySelector('input[name="q1"]:checked');
+            if (!q1Selected) {
+                allCorrect = false;
+                resultHTML += `<div style="margin: 10px 0; padding: 10px; background: #ffe6e6; border-radius: 8px;">
+                    <strong>Q1: ✗</strong> Qui habitait dans la maison derrière la bibliothèque avant 1900 ?<br>
+                    Vous n'avez pas répondu.
+                </div>`;
+            } else {
+                const val = parseInt(q1Selected.value);
+                const correct = val === 2;
+                allCorrect = allCorrect && correct;
+                resultHTML += `<div style="margin: 10px 0; padding: 10px; background: ${correct ? '#e6fffa' : '#ffe6e6'}; border-radius: 8px;">
+                    <strong>Q1: ${correct ? '✓' : '✗'}</strong> Qui habitait dans la maison derrière la bibliothèque avant 1900 ?<br>
+                    Votre réponse: <em>${q1Selected.parentElement.textContent.trim()}</em><br>
+                    ${correct ? '✓ Correct !' : 'Bonne réponse: <em>Le curé</em>'}
+                </div>`;
+            }
+
+            // Question 2
+            const input2 = document.querySelector('input[data-answer="1"]');
+            const ans2 = input2.value.trim().toLowerCase();
+            const correct2 = ans2 === "L'instituteur et l'institutrice".toLowerCase() || ans2 === "instituteur et institutrice" || ans2 === "l'instituteur et institutrice";
+            allCorrect = allCorrect && correct2;
+            resultHTML += `<div style="margin: 10px 0; padding: 10px; background: ${correct2 ? '#e6fffa' : '#ffe6e6'}; border-radius: 8px;">
+                <strong>Q2: ${correct2 ? '✓' : '✗'}</strong> Qui habitait dans la mairie actuelle à sa construction en 1838 ?<br>
+                Votre réponse: <em>"${ans2 || '(vide)'}"</em><br>
+                ${correct2 ? '✓ Correct !' : 'Bonne réponse: <em>"L\'instituteur et l\'institutrice"</em>'}
+            </div>`;
+
+            resultHTML += '</div>';
+            
+            const existingResult = document.querySelector('.result');
+            if (existingResult) existingResult.remove();
+            
+            const resultDiv = document.createElement('div');
+            resultDiv.innerHTML = resultHTML;
+            resultDiv.firstChild.classList.toggle('error', !allCorrect);
+            
+            const container = document.querySelector('.container');
+            container.insertBefore(resultDiv.firstChild, container.querySelector('.button-group'));
+        }
+
+        function goBack() {
+            window.history.back();
+        }
+    </script>
+</body>
+</html>
