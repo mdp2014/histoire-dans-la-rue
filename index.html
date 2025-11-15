@@ -13,20 +13,96 @@
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
             background-size: 400% 400%;
-            animation: gradientBG 15s ease infinite;
+            animation: gradientShift 15s ease infinite;
             min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
             padding: 20px;
+            position: relative;
+            overflow: hidden;
         }
 
-        @keyframes gradientBG {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
+        @keyframes gradientShift {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        /* Bulles animées en arrière-plan */
+        .bubble {
+            position: absolute;
+            border-radius: 50%;
+            opacity: 0.1;
+            animation: float 20s infinite;
+        }
+
+        .bubble:nth-child(1) {
+            width: 80px;
+            height: 80px;
+            background: #fff;
+            top: 10%;
+            left: 10%;
+            animation: float 20s infinite ease-in-out;
+        }
+
+        .bubble:nth-child(2) {
+            width: 120px;
+            height: 120px;
+            background: #fff;
+            top: 50%;
+            right: 10%;
+            animation: float 25s infinite ease-in-out reverse;
+        }
+
+        .bubble:nth-child(3) {
+            width: 60px;
+            height: 60px;
+            background: #fff;
+            bottom: 20%;
+            left: 30%;
+            animation: float 30s infinite ease-in;
+        }
+
+        .bubble:nth-child(4) {
+            width: 100px;
+            height: 100px;
+            background: #fff;
+            top: 30%;
+            right: 30%;
+            animation: float 22s infinite ease-out reverse;
+        }
+
+        .bubble:nth-child(5) {
+            width: 70px;
+            height: 70px;
+            background: #fff;
+            bottom: 10%;
+            right: 20%;
+            animation: float 28s infinite ease-in-out;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0px) translateX(0px);
+            }
+            25% {
+                transform: translateY(-30px) translateX(20px);
+            }
+            50% {
+                transform: translateY(-60px) translateX(-20px);
+            }
+            75% {
+                transform: translateY(-30px) translateX(30px);
+            }
         }
 
         .container {
@@ -38,6 +114,8 @@
             box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
             text-align: center;
             animation: fadeIn 0.8s ease-out;
+            position: relative;
+            z-index: 10;
         }
 
         @keyframes fadeIn {
@@ -55,13 +133,23 @@
             width: 120px;
             height: 120px;
             margin: 0 auto 30px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #ee7752 0%, #e73c7e 25%, #23a6d5 75%, #23d5ab 100%);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             font-size: 50px;
             box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+            animation: rotateLogo 6s linear infinite;
+        }
+
+        @keyframes rotateLogo {
+            from {
+                transform: rotate(0deg);
+            }
+            to {
+                transform: rotate(360deg);
+            }
         }
 
         h1 {
@@ -72,10 +160,13 @@
         }
 
         .subtitle {
-            color: #667eea;
+            background: linear-gradient(135deg, #ee7752 0%, #e73c7e 25%, #23a6d5 75%, #23d5ab 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
             font-size: 1.2em;
             margin-bottom: 30px;
-            font-weight: 500;
+            font-weight: 600;
         }
 
         .description {
@@ -93,24 +184,26 @@
         }
 
         .feature {
-            background: #f7fafc;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
             padding: 20px;
             border-radius: 15px;
             display: flex;
             align-items: center;
             gap: 15px;
             transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border-left: 4px solid;
+            border-image: linear-gradient(180deg, #ee7752, #e73c7e, #23a6d5, #23d5ab) 1;
         }
 
         .feature:hover {
             transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.2);
+            box-shadow: 0 10px 25px rgba(230, 60, 126, 0.3);
         }
 
         .feature-icon {
             width: 50px;
             height: 50px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #ee7752 0%, #e73c7e 25%, #23a6d5 75%, #23d5ab 100%);
             border-radius: 12px;
             display: flex;
             align-items: center;
@@ -126,7 +219,8 @@
         }
 
         .cta-button {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #ee7752 0%, #e73c7e 25%, #23a6d5 75%, #23d5ab 100%);
+            background-size: 300% 300%;
             color: white;
             border: none;
             padding: 18px 50px;
@@ -135,13 +229,26 @@
             cursor: pointer;
             font-weight: 600;
             transition: transform 0.3s ease, box-shadow 0.3s ease;
-            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+            box-shadow: 0 10px 30px rgba(230, 60, 126, 0.4);
             margin: 10px 5px;
+            animation: buttonGradient 3s ease infinite;
+        }
+
+        @keyframes buttonGradient {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
         }
 
         .cta-button:hover {
             transform: translateY(-3px);
-            box-shadow: 0 15px 40px rgba(102, 126, 234, 0.5);
+            box-shadow: 0 15px 40px rgba(230, 60, 126, 0.5);
         }
 
         .cta-button:active {
@@ -184,6 +291,13 @@
     </style>
 </head>
 <body>
+    <!-- Bulles animées en arrière-plan -->
+    <div class="bubble"></div>
+    <div class="bubble"></div>
+    <div class="bubble"></div>
+    <div class="bubble"></div>
+    <div class="bubble"></div>
+
     <div class="container">
         <div class="logo">🧭</div>
         
@@ -234,7 +348,7 @@
         <div id="scannerSection" style="display: none; margin-top: 30px;">
             <h2 style="color: #2d3748; margin-bottom: 20px; font-size: 1.5em;">Scanner un QR Code</h2>
             <div id="reader" style="border-radius: 15px; overflow: hidden; margin-bottom: 20px;"></div>
-            <button class="cta-button" onclick="stopScanner()" style="background: #e53e3e; padding: 12px 30px; font-size: 1em;">Fermer le scanner</button>
+            <button class="cta-button" onclick="stopScanner()" style="background: linear-gradient(135deg, #e53e3e 0%, #c53030 100%); padding: 12px 30px; font-size: 1em;">Fermer le scanner</button>
         </div>
     </div>
 
